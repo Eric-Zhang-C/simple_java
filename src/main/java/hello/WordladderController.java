@@ -1,19 +1,35 @@
 package hello;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
-@RestController
+import org.springframework.ui.ModelMap;
+import org.springframework.stereotype.Controller;
+
+@Controller
 public class WordladderController {
     @Autowired
     private WordladderService wordladderService;
 
+    @RequestMapping("/")
+    public String index() {
+        return "index";
+    }
+
+    @RequestMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "login";
+    }
+
     @RequestMapping(value = "/wordladder", method = RequestMethod.GET)
-    public ArrayList<String> wordLadder(String start, String end) {
+    public @ResponseBody ArrayList<String> wordLadder(String start, String end) {
         System.out.println("controller");
         return wordladderService.wordLadder(start, end);
     }
